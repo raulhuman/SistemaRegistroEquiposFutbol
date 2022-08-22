@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Sistema de Inscripcion</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+</head>
+<body>
+	<div th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" th:href="@{/}">Sistema Inscripcion</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li sec:authorize="hasRole('ROLE_SECRETARY')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/usuario/listar}">Cliente</a></li>
+						<li sec:authorize="hasRole('ROLE_SECRETARY')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/categoria/listar}">Categoria</a></li>
+						<li sec:authorize="hasRole('ROLE_SECRETARY')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/torneo/listar}">Torneo</a></li>
+						<li sec:authorize="hasRole('ROLE_USER')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/torneo/listar}">Torneos Disponibles</a></li>
+						<li sec:authorize="hasRole('ROLE_SECRETARY')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/equipo/listar}">Equipo</a></li>
+						<li sec:authorize="hasRole('ROLE_SECRETARY')" class="nav-item"><a class="nav-link" aria-current="page"
+							th:href="@{/persona/listar}">Jugador</a></li>
+					</ul>
+				</div>
+				<form class="form-inline my-2 my-lg-0" method="post" th:action="@{/logout}">
+			      
+			      <b>User: </b><span sec:authentication="name">Usuario que hizo Login</span> \
+
+			      
+			      <input class = "btn btn-outline-danger" type="submit" value="Salir">
+			    </form>
+			</div>
+		</nav>
+		<div class="alert alert-primary" th:if="${success != null}" th:text="${success}"></div>
+		<div class="alert alert-warning" th:if="${info != null}" th:text="${info}"></div>
+		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+	</div>
+	<div th:fragment="scripts">
+		<script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
+		<script type="text/javascript">
+			 
+			$(document).ready(function () {
+			 
+			    (function ($) {
+			 
+			        $('#filtrar').keyup(function () {
+			 
+			             var rex = new RegExp($(this).val(), 'i');
+			 
+			             $('.buscar tr').hide();
+			 
+			             $('.buscar tr').filter(function () {
+			               return rex.test($(this).text());
+			             }).show();
+			 
+			        })
+			 
+			    }(jQuery));
+			 
+			});
+		</script>
+		<script type="text/javascript">
+			 
+			$(document).ready(function () {
+			 
+			    (function ($) {
+			 
+			        $('#filtrar').keyup(function () {
+			 
+			             var rex = new RegExp($(this).val(), 'i');
+			 
+			             $('.buscar2 div').hide();
+			 
+			             $('.buscar2 div').filter(function () {
+			               return rex.test($(this).text());
+			             }).show();
+			 
+			        })
+			 
+			    }(jQuery));
+			 
+			});
+		</script>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Inscripcion</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<!-- HTML 2 -->
+	<div class="modal-dialog text-center">
+		<div class="col-sm-8 main-section">
+			<div class="modal-content">
+				<div class="col-12 Avatar-img">
+					<img alt="persona" th:src="@{/images/user.png}" />
+				</div>
+				<form class="col-12" th:action="@{/login}" method="post">
+					<div class="form-group" id="user-group">
+						<input type="text" class="form-control"
+							placeholder="Nombre de usuario" name="username" />
+					</div>
+					<div class="form-group" id="contrasena-group">
+						<input type="password" class="form-control"
+							placeholder="Contrasena" name="password" />
+					</div>
+					<button type="submit" class="btn btn-dark">
+						<i class="fas fa-sign-in-alt"></i> Ingresar
+					</button>
+				</form>
+				<div class="col-12 forgot">
+					<span>Si eres nuevo usuario <a th:href="@{/usuario/formulario}">Registrate
+							aqui</a></span>
+				</div>
+				<div th:if="${param.error}" class="alert alert-danger" role="alert">
+					Usuario y/o contraseña invalido.</div>
+				<div th:if="${param.logout}" class="alert alert-success"
+					role="alert">Has cerrado sesión.</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout/layout :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+		<div class="container mt-2">
+    	<br>
+        <h1 class="text-secondary border-bottom border-3 border primary" th:text="${titulo}"></h1>
+        
+        <div class="container" id="main-container">
+		  	<div class="row">
+		    <div th:each="jugadores: ${jugadores}"  class="col-md-6 col-xl-3">
+		        <div class="card m-b-40">
+		            <div class="card-body row">
+		                <div class="col-6">
+		                    <img th:if="${jugadores.foto} != null" th:src="@{'/uploads/' + ${jugadores.foto}}" class="rounded float-start" style="width: 100px; height: 100px" th:alt="${jugadores.nombre} ">
+		                </div>
+		                <div class="col-6 card-title align-self-center mb-0">
+		                    <h5 id="nombres" th:text="${jugadores.nombre} + ' ' + ${jugadores.apellidos} "></h5>
+		                    <h6 id="nombres" th:text="'DNI: '+ ${jugadores.dni}"></h6>
+		                    <p class="m-0" th:text="'Telefono: ' + ${jugadores.telefono}"></p>
+		                   
+		                </div>
+		            </div>
+		                
+		        </div>
+		    </div>
+		    </div>
+		  </div>
+	</div>
+
+</body>
+</html>

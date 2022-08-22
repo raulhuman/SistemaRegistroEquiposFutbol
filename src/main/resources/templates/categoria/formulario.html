@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Categoria</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+	<!-- Inicio NavBar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Categoria</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						th:href="@{/categoria/listar}">Categoria</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Fin NavBar -->
+	<div class="container">
+		<h1 class="text-secondary border-bottom border-2 border-primary" th:text="${titulo}"></h1>
+		<form th:action="@{/categoria/formulario}" th:object="${categoria}" method="post">
+			<div class="col-4">
+				<label class="form-label" for="nombre">Nombre de Categoria:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{nombre}" placeholder="Ingrese su nombre" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="edadmaxima">Edadmaxima:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{edadmaxima}" placeholder="Ingrese sus edadmaxima" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('edadmaxima')}" th:errors="*{edadmaxima}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="edadminima">Edadminima:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{edadminima}" placeholder="Ingrese su Edadminima" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('edadminima')}" th:errors="*{edadminima}"></small>
+			</div>
+			<div>
+				<input class="btn btn-primary mt-2" type="submit" value="Enviar">
+			</div>
+		</form>
+	</div>
+	<!-- JS -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
+	<!-- Fin JS -->
+</body>
+</html>

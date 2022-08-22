@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	<div class="container mt-2">
+		<h1 class="text-secondary border-bottom border-2 border-primary" th:text="${titulo}"></h1>
+		<img th:if="${usuario.foto} != null" th:src="@{'/uploads/' + ${usuario.foto}}" class="rounded float-start" style="width: 165px; height: 165px" th:alt="${usuario.nombre} + ' ' + ${usuario.apellidos}">
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-dark" th:text="'Nombre(s): ' + ${usuario.nombre}"></li>
+			<li class="list-group-item list-group-item-dark" th:text="'Apellidos: ' + ${usuario.apellidos}"></li>
+			<li class="list-group-item list-group-item-dark" th:text="'Email: ' + ${usuario.email}"></li>
+			<li class="list-group-item list-group-item-dark" th:text="'Registro: ' + ${usuario.fechaCreacion}"></li>
+		</ul>
+	</div>
+	<div th:replace="layout/layout :: scripts"></div>
+</body>
+</html>

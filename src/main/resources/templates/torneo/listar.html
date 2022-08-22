@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+    <body>
+    	<div th:replace="layout/layout :: header"></div>
+    	<div class="container mt-2">
+    	<br>
+        <a th:href="@{/torneo/formulario}" type="button" class="btn btn-primary">Nuevo Torneo</a>
+        <h1 class="text-secondary border-bottom border-3 border primary" th:text="${titulo}"></h1>
+        
+        <!-- <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                     <th>Categoria</th>
+                    <th>Descripcion</th>
+                    <th>Estado</th>
+                    <th>FechaInicio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="Torneo: ${Torneo}">
+                    <td th:text="${Torneo.id}"></td>
+                     <td th:text="${Torneo.categoria}"></td>
+                    <td th:text="${Torneo.descripcion}"></td>
+                    <td th:text="${Torneo.estado}"></td>
+                    <td th:text="${#dates.format(Torneo.fechaInicio, 'dd-MM-yyyy')}"></td>
+                    <td>
+                        <a class="btn btn-success" th:href="@{/torneo/formulario/} + ${Torneo.id}" type="button">EDITAR</a>
+                        <a class="btn btn-danger" th:href="@{/torneo/eliminar/} + ${Torneo.id}" type="button" >ELIMINAR</a>
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+        </div> -->
+        
+        <!-- Modelo 02 -->
+        <div class="container" id="main-container">
+		  	<div class="row">
+		    <div th:each="Torneo: ${Torneo}"  class="col-md-6 col-xl-3">
+		        <div class="card m-b-40">
+		            <div class="card-body row">
+		                <div class="col-6">
+		                    <img th:if="${Torneo.foto} != null" th:src="@{'/uploads/' + ${Torneo.foto}}" class="rounded float-start" style="width: 100px; height: 100px" th:alt="${Torneo.descripcion} ">
+		                </div>
+		                <div class="col-6 card-title align-self-center mb-0">
+		                    <h5 id="nombres" th:text="${Torneo.descripcion}"></h5>
+		                    <p class="m-0" th:text="'Estado: ' + ${Torneo.estado}"></p>
+		                    <p class="m-0" th:text="'Fecha Inicio: ' + ${#dates.format(Torneo.fechaInicio, 'dd-MM-yyyy')}"></p>
+		                    <p class="m-0" th:text="'Categorias: ' + ${Torneo.categorias}"></p>
+		                   
+		                </div>
+		            </div>
+		            
+		            <div class="card-body">
+		                <div class="float-right btn-group btn-group-sm">
+		                    <a class="btn btn-info w-100" th:href="@{/torneo/equipos/}+ ${Torneo.id}">Lista Equipos <i class="fa fa-pencil"></i></a>
+		                </div>
+		            </div>
+		            
+		            <div class="card-body">
+		                <div class="float-right btn-group btn-group-sm">
+		                    <a sec:authorize="hasRole('ROLE_SECRETARY')" class="btn btn-success w-100" th:href="@{/torneo/formulario/} + ${Torneo.id}">Editar <i class="fa fa-pencil"></i></a>
+		                    <a sec:authorize="hasRole('ROLE_SECRETARY')" class="btn btn-danger w-100" th:href="@{/torneo/eliminar/} + ${Torneo.id}">Eliminar <i class="fa fa-times"></i></a>                   
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    </div>
+		  </div>
+    </body>
+</html>

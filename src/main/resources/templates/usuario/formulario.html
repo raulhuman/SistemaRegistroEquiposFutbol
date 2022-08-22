@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	<div class="container mt-2">
+		<h1 class="text-secondary border-bottom border-2 border-primary" th:text="${titulo}"></h1>
+		<form th:action="@{/usuario/formulario}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+			<div class="col-4">
+				<label class="form-label" for="nombre">Nombre:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{nombre}" placeholder="Ingrese su nombre" th:errorclass="'bg-danger bg-opacity-25'" autofocus>
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="apellidos">Apellidos:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{apellidos}" placeholder="Ingrese sus apellidos" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="dni">DNI:</label>
+				<div>
+					<input class="form-control" type="number" th:field="*{dni}" placeholder="Ingrese su DNI" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="email">Email:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{email}" placeholder="Ingrese su email" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="telefono">Telefono:</label>
+				<div>
+					<input class="form-control" type="number" th:field="*{telefono}" placeholder="Ingrese su Telefono" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="edad">Edad:</label>
+				<div>
+					<input class="form-control" type="number" th:field="*{edad}" placeholder="Ingrese su edad" th:errorclass="'bg-danger bg-opacity-25'">
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></small>
+			</div>
+			
+			<div class="col-4">
+				<label class="form-label" for="username">Username:</label>
+				<div>
+					<input class="form-control" type="text" th:field="*{username}" placeholder="Ingrese su usuario" th:errorclass="'bg-danger bg-opacity-25'" autofocus>
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+			</div>
+			<div class="col-4">
+				<label class="form-label" for="password">Password:</label>
+				<div>
+					<input class="form-control" type="password" th:field="*{password}" placeholder="Ingrese su nombre" th:errorclass="'bg-danger bg-opacity-25'" autofocus>
+				</div>
+				<small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+			</div>
+			
+			<div class="col-4">
+				<label class="form-label" for="roles">Roles:</label>
+				<div>
+					<select class="form-control" th:field="*{roles}" >
+						<option th:value="1" th:text="ROLE_USER"></option>
+						<option sec:authorize="isAuthenticated()" th:value="2" th:text="ROLE_SECRETARY"></option>
+						<option sec:authorize="isAuthenticated()" th:value="3" th:text="ROLE_ADMIN"></option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-4">
+				<label class="form-label" for="foto">Foto:</label>
+				<div>
+					<input class="form-control" type="file" name="file" id="foto">
+				</div>
+			</div>
+
+			
+			<div class="col-4">
+				<input class="btn btn-primary mt-2 w-100" type="submit" value="Enviar">
+			</div>
+		</form>
+	</div>
+	<div th:replace="layout/layout :: scripts"></div>
+</body>
+</html>

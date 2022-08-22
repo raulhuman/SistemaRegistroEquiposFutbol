@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	<div class="container mt-2">
+		<a class="btn btn-primary mb-2" th:href="@{/equipo/formulario}">Nuevo equipo</a>
+		<h1 class="text-secondary border-bottom border-3 border-primary" th:text="${titulo}"></h1>
+		<!--  -->
+		<div class='row'>
+			<div class="input-group">
+				<div class="col-sm">
+				  <span class="input-group-addon">Buscar :</span> <br>
+				  <input id="filtrar" type="text" class="form-control" placeholder="Ingresa el nombre de equipo que deseas Buscar...">
+				</div>
+			</div>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>FOTO</th>
+					<th>NOMBRE</th>
+					<th>FECHA REGISTRO</th>
+					<th>REPRESENTANTE</th>
+					<th>TORNEO INSCRITO</th>
+					<th class="text-center" colspan="2">Acciones</th>
+				</tr>
+			</thead>
+			<tbody class="buscar">
+				<tr th:each="equipo: ${equipos}">
+					<td th:text="${equipo.id}"></td>
+					<td><img th:if="${equipo.foto} != null" th:src="@{'/uploads/' + ${equipo.foto}}" class="rounded float-start" style="width: 165px; height: 165px" th:alt="${equipo.nombre}"></td>
+					<td th:text="${equipo.nombre}"></td>
+					<td th:text="${equipo.fecRegistro}"></td>
+					<td th:text="${equipo.usuario.nombre} +' ' + ${equipo.usuario.apellidos}"></td>
+					<td th:text="${equipo.torneo.descripcion}"></td>
+									
+					<td>
+						<a sec:authorize="hasRole('ROLE_SECRETARY')" class="btn btn-success" th:href="@{/equipo/formulario/} + ${equipo.id}">Editar</a>
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger" th:href="@{/equipo/eliminar/} + ${equipo.id}">Eliminar</a>
+						<a sec:authorize="hasRole('ROLE_SECRETARY')" class="btn btn-info" th:href="@{/persona/formulario}">Agregar Jugador</a>
+						<a class="btn btn-warning" th:href="@{/equipo/jugadores/} + ${equipo.id}">Lista Jugadores</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:replace="layout/layout :: scripts"></div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+    <body>
+    	<div th:replace="layout/layout :: header"></div>
+       
+        <div class="container mt-2">
+        	 <h1 class="text-secondary border-bottom border-3 border primary" th:text="${titulo}"></h1>
+            <form th:action="@{/torneo/formulario}" th:object="${torneo}" method="post" enctype="multipart/form-data">
+                <div class="col-4">
+                    <label for="descripcion" class="form-label">Nombre - Descripcion:</label>
+                        <div>
+                            <input class="form-control" type="text" th:field="*{descripcion}" placeholder="Ingrese Descripcion">
+                        </div>
+                        <small class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+                </div>
+                <!--  
+                <div class="col-4">
+                    <label for="estado" class="form-label">Estado:</label>
+                        <div>
+                            <input class="form-control" type="text" th:field="*{estado}" placeholder="Ingrese Estado">
+                        </div>
+                        <small class="text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></small>
+                </div>
+                -->
+                <div class="col-4">
+					<label class="form-label" for="estado">Estado:</label>
+					<div>
+						<select class="form-control" th:field="*{estado}" >
+							<option th:value="Activo" th:text="Activo"></option>
+							<option th:value="Inactivo" th:text="Inactivo"></option>
+						</select>
+					</div>
+				</div>
+                
+                <div class="col-4">
+					<label class="form-label" for="foto">Foto:</label>
+					<div>
+						<input class="form-control" type="file" name="file" id="foto">
+					</div>
+				</div>
+                
+                <div class="col-4">
+                    <label for="fechaInicio" class="form-label">Fecha de Inicio:</label>
+                        <div>
+                            <input class="form-control" type="date" th:field="*{fechaInicio}" >
+                        </div>
+                        <small class="text-danger" th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></small>
+                </div>
+                <div class="col-4">
+					<label class="form-label" for="equipo">Seleccione una o mas categorias:</label>
+					<select th:field="*{categorias}" class="form-control" multiple="multiple"  required>
+						<th:block th:each="categoria: ${categorias}">
+						<option  th:value="${categoria.id}" th:text="${categoria.nombre}" ></option>
+						</th:block>
+					</select>
+					
+				</div>
+                
+                <br>
+                <div>
+                    <input class="btn btn-primary mt-2" type="submit" value="Enviar">
+                </div>
+                <input type="hidden" th:field="*{id}">
+            </form>
+        </div>
+    </body>
+</html>

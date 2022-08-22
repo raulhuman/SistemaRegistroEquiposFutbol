@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/login}">Sistema Inscripcion</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+	</nav>
+	<br />
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div th:if=${param.exito}>
+					<div class="alert alert-info">Registro Exitoso</div></div>
+					<h1>Registrate</h1>
+					<form th:action="@{/registro}" method="post" th:object="${usuario}" enctype="multipart/form-data">
+						<div class="form-group">
+							<label class="form-label" for="nombre">Nombre:</label> <input
+								class="form-control" type="text" th:field="*{nombre}"
+								placeholder="Ingrese su nombre" autofocus>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Apellidos:</label>
+							<div>
+								<input class="form-control" type="text" th:field="*{apellidos}" placeholder="Ingrese sus apellidos">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">DNI:</label>
+							<div>
+								<input class="form-control" type="number" th:field="*{dni}" placeholder="Ingrese su DNI">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Email:</label>
+							<div>
+								<input class="form-control" type="text" th:field="*{email}" placeholder="Ingrese sus email">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Telefono:</label>
+							<div>
+								<input class="form-control" type="number" th:field="*{telefono}" placeholder="Ingrese su telefono">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Edad:</label>
+							<div>
+								<input class="form-control" type="number" th:field="*{edad}" placeholder="Ingrese su edad">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Username:</label>
+							<div>
+								<input class="form-control" type="text" th:field="*{username}" placeholder="Ingrese su username">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="form-label" for="apellidos">Password:</label>
+							<div>
+								<input class="form-control" type="password" th:field="*{password}" placeholder="Ingrese sus contraseña">
+							</div>
+						</div>
+						
+						<div class="col-4">
+							<label class="form-label" for="foto">Foto:</label>
+							<div>
+								<input class="form-control" type="file" name="file" id="foto">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Registrar</button>
+							<span>Si estas registrado <a th:href="@{/login}">Inicia sesion aqui</a></span>
+						</div>
+					</form>
+				
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="layout/layout :: scripts"></div>
+
+</body>
+</html>

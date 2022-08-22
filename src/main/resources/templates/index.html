@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Inscripcion</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" th:href="@{/oerfil.css}">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	
+
+	<div class="container" th:each="usuario: ${prueba}">
+	      <div class="row justify-content-center">
+	        <div class="col-md-9">
+	          <div class="row align-items-center">
+	            <div class="col-lg-5">
+	              <div class="resume-base bg-primary user-dashboard-info-box p-4">
+	                <div class="profile">
+	                  <div class="jobster-user-info">
+	                    <div class="profile-avatar">
+	                      <img class="img-fluid " th:if="${usuario.foto} != null" th:src="@{'/uploads/' + ${usuario.foto}}" th:alt="${usuario.nombre} + ' ' + ${usuario.apellidos}">
+	                    </div>
+	                    <div class="profile-avatar-info mt-3">
+	                      <h5 class="text-white" id="nombres" th:text="${usuario.nombre} +' '+ ${usuario.apellidos}"></h5>
+	                    </div>
+	                  </div>
+	                </div>
+	                <div class="about-candidate border-top">	                  
+	                  <div class="candidate-info">
+	                    <h6 class="text-white">Email:</h6>
+	                    <p class="text-white" th:text="${usuario.email}"></p>
+	                  </div>
+	                  <div class="candidate-info">
+	                    <h6 class="text-white">Telefono:</h6>
+	                    <p class="text-white" th:text="${usuario.telefono}" ></p>
+	                  </div>
+	                  <div class="candidate-info">
+	                    <h6 class="text-white">Fecha de Registro:</h6>
+	                    <p class="text-white" th:text="${usuario.fechaCreacion}"></p>
+	                  </div>
+	                  <div class="candidate-info">
+	                    <h6 class="text-white">DNI:</h6>
+	                    <p class="text-white" th:text="${usuario.dni}" ></p>
+	                  </div>         
+	                </div>
+	                
+	              </div>
+	            </div>
+	            <div class="col-lg-7">
+	              <div class="resume-experience">
+	                <div class="timeline-box">
+	                  <h4 class="resume-experience-title">Datos adicionales:</h4>
+	                  <div class="jobster-candidate-timeline">
+	                    <h5 th:if="${usuario.equipo != null}" th:text=" 'Tu equipo es: ' + ${usuario.equipo.nombre}" class="jobster-candidate-timeline">No tienes registrado un equipo</h5>
+	                    <img class="img-fluid " th:if="${usuario.equipo} != null" th:src="@{'/uploads/' + ${usuario.equipo.foto}}" style="width: 150px; height: 150px" th:alt="${usuario.equipo.nombre}">
+	                    <h5 sec:authorize="hasRole('ROLE_SECRETARY')" class="list-group-item">No puedes agregar un equipo a tu nombre</h5>
+	                    <br>
+	                    <a sec:authorize="hasRole('ROLE_USER')" class="btn btn-success w-80" th:if="${usuario.equipo} == null"  th:href="@{equipo/formulario}">Agregar Equipo <i class="fa fa-pencil"></i></a>
+	                  </div>
+	                </div>
+	                <div class="timeline-box mt-4">
+	                  <h5 class="resume-experience-title">Acciones:</h5>
+	                  <div class="jobster-candidate-timeline">
+	                    <a  sec:authorize="hasRole('ROLE_USER')" th:href="@{persona/formulario}" class="btn btn-info w-70">Agregar Jugadores</a><br><br>
+	                    <div th:if="${usuario.equipo} != null">
+		    				<a  sec:authorize="hasRole('ROLE_USER')"  th:href="@{/equipo/jugadores/} + ${usuario.equipo.id}" class="btn btn-dark w-70">Lista de Jugadores</a>
+	                    </div>
+	                  </div>
+	                </div>
+	                
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</body>
+</html>

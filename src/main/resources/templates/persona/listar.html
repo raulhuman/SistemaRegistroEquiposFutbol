@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	<div class="container mt-2">
+		<div class="col-2">
+			<a class="btn btn-primary mb-2 w-100" th:href="@{/persona/formulario}">Nuevo Jugador</a>
+		</div> 
+		<h1 class="text-secondary border-bottom border-2 border-primary" th:text="${titulo}"></h1>
+		<div class='row'>
+			<div class="input-group">
+				<div class="col-sm">
+				  <span class="input-group-addon">Buscar :</span> <br>
+				  <input id="filtrar" type="text" class="form-control" placeholder="Ingresa el nombre de equipo que deseas Buscar...">
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	  
+	<!-- Version 02 -->
+	
+	<div class="container" id="main-container">
+  	<div class="row">
+  	
+    <div th:each="persona: ${personas}"  class="col-md-6 col-xl-3">
+    
+        <div class="card m-b-40">
+            <div class="card-body row">
+            <div class="buscar2">      
+                <div class="col-6">
+                    <img th:if="${persona.foto} != null" th:src="@{'/uploads/' + ${persona.foto}}" class="rounded float-start" style="width: 100px; height: 100px" th:alt="${persona.nombre} + ' ' + ${persona.apellidos}">
+                </div>
+                <div class="col-6 card-title align-self-center mb-0">
+                	<a class="btn btn-dark" th:href="@{/persona/detalle/} + ${persona.id}" th:text="${persona.id}"></a>
+                    <h5 id="nombres" th:text="${persona.nombre} +' '+ ${persona.apellidos}"></h5>
+                    <p class="m-0" th:text="'DNI:' + ${persona.dni}"></p>
+                    <p class="m-0" th:text="'Telefono: ' + ${persona.telefono}"></p>
+                    <p class="m-0" th:text="'Equipo Actual: ' + ${persona.equipo.nombre}"></p>
+                   
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><i class="fa fa-envelope float-right" th:text="'Email: '+ ${persona.email}"></i> <a href="#"></a></li>
+            </ul>
+            <div class="card-body">
+                <div class="float-right btn-group btn-group-sm">
+                    <a sec:authorize="hasRole('ROLE_SECRETARY')" class="btn btn-success w-100" th:href="@{/persona/formulario/} + ${persona.id}">Editar <i class="fa fa-pencil"></i></a>
+                    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger w-100" th:href="@{/persona/eliminar/} + ${persona.id}">Eliminar <i class="fa fa-times"></i></a>                   
+                </div>
+            </div>
+        </div>
+     </div>
+    </div>      
+  </div>
+  <div th:replace="layout/layout :: scripts"></div>   
+</div>
+</body>
+</html>

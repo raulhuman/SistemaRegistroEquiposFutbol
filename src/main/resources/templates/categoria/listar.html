@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+	<div th:replace="layout/layout :: header"></div>
+	<div class="container mt-2">
+		<div class="col-2">
+			<a class="btn btn-primary mb-2 w-100" th:href="@{/categoria/formulario}">Nueva Categoria</a>
+		</div> 
+		<h1 class="text-secondary border-bottom border-2 border-primary" th:text="${titulo}"></h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre Categoria</th>
+					<th>Edadmaxima</th>
+					<th>Edadminima</th>
+					<th>Fecha de Creacion</th>
+					<th class="text-center" colspan="2">Acciones</th>
+				</tr>
+				</thead>
+			<tbody>
+				<tr th:each="categoria: ${categorias}">
+					<td th:text="${categoria.id}"></td>
+					<td th:text="${categoria.nombre}"></td>
+					<td th:text="${categoria.edadmaxima}"></td>
+					<td th:text="${categoria.edadminima}"></td>
+					<td th:text="${categoria.fechaInicio}"></td>
+					<td><a class="btn btn-success w-100" th:href="@{/categoria/formulario/} + ${categoria.id}">Editar</a></td>
+					<td><a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-danger w-100" th:href="@{/categoria/eliminar/} + ${categoria.id}">Eliminar</a></td>
+					</tr>
+			</tbody>
+		</table>
+		</div>
+		<div th:replace="layout/layout :: scripts"></div>
+</body>
+</html>
